@@ -9,14 +9,16 @@ func longestCommonPrefix(strs []string) string {
 
     // Iterate through the remaining strings in the slice
     for i := 1; i < len(strs); i++ {
-        // Update the common prefix by comparing characters between strings
-        for !strings.HasPrefix(strs[i], prefix) {
-            prefix = prefix[:len(prefix)-1]
+        // Find the common prefix between the current prefix and the current string
+        j := 0
+        for j < len(prefix) && j < len(strs[i]) && prefix[j] == strs[i][j] {
+            j++
         }
+        prefix = prefix[:j]
 
-        // If the common prefix becomes empty, return an empty string
+        // If the common prefix becomes empty, no need to check further
         if prefix == "" {
-            return ""
+            break
         }
     }
 
